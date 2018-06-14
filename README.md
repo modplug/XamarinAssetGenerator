@@ -2,7 +2,8 @@
 Converts image resources from svg to png and scales the images to desired size
 
 
-Common usage:
+Common usage: 
+```
 mono AssetGenerator.exe -d destinationfolder -m iOS -q 80 -s sourcefolder
 
   -m, --mode           Required. Specify which assets to build. ios or android
@@ -16,3 +17,4 @@ mono AssetGenerator.exe -d destinationfolder -m iOS -q 80 -s sourcefolder
   --help               Display this help screen.
 
   --version            Display version information.
+```
