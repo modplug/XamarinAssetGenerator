@@ -17,6 +17,9 @@ namespace AssetGenerator
 
         [Option('q', "quality", Separator = '-', HelpText = "Specify quality of rendered png files (100 is max)", Required = false, Default = 80)]
         public int Quality { get; set; }
+        
+        [Option('p', "postifx", Separator = '-', HelpText = "Specify the desired api postfix for Android (v4, v17) ", Required = false)]
+        public string Postfix { get; set; }
 
         [Usage(ApplicationAlias = "AssetGenerator")]
         public static IEnumerable<Example> Examples
@@ -29,6 +32,7 @@ namespace AssetGenerator
                         Mode = "iOS",
                         SourceFolderPath = "sourcefolder",
                         DestinationFolderPath = "destinationfolder",
+                        Postfix = string.Empty,
                         Quality = 80
                     });
             }

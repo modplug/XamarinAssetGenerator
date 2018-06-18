@@ -4,6 +4,7 @@ namespace AssetGenerator
 {
     public interface IAssetGenerator
     {
-        Task CreateAsset(string filepath, string filename, string destinationDirectory, int quality);
+        Task CreateAsset(string filepath, string filename, string destinationDirectory, int quality,
+            string postfix = default);
     }
 }

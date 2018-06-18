@@ -7,7 +7,8 @@ namespace AssetGenerator
 {
     public class IOSAssetGenerator : IAssetGenerator
     {
-        public async Task CreateAsset(string filepath, string filename, string destinationDirectory, int quality)
+        public async Task CreateAsset(string filepath, string filename, string destinationDirectory, int quality,
+            string postfix = default)
         {
             for (var i = 1; i < 4; i++)
             {

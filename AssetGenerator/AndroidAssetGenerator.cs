@@ -8,7 +8,8 @@ namespace AssetGenerator
 {
     public class AndroidAssetGenerator : IAssetGenerator
     {
-        public async Task CreateAsset(string filepath, string filename, string destinationDirectory, int quality)
+        public async Task CreateAsset(string filepath, string filename, string destinationDirectory, int quality,
+            string postfix)
         {
             var resourceTypes = new Dictionary<AndroidResourceType, float>
             {
@@ -25,7 +26,7 @@ namespace AssetGenerator
                 try
                 {
                     var name = Enum.GetName(typeof(AndroidResourceType), resourceType.Key);
-                    var resourceDirectoryName = $"drawable-{name.ToLowerInvariant()}";
+                    var resourceDirectoryName = $"drawable-{name.ToLowerInvariant()}-{postfix}";
                     var svg = new SKSvg();
                     try
                     {

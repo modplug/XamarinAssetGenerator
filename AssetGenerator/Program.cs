@@ -18,6 +18,7 @@ namespace AssetGenerator
             var sourceDirectory = Directory.GetCurrentDirectory();
             var destinationDirectory = Directory.GetCurrentDirectory();
             var result = Parser.Default.ParseArguments<Options>(args);
+            var postfix = string.Empty;
             var quality = 80;
 
             result.WithParsed(options =>
@@ -48,6 +49,11 @@ namespace AssetGenerator
                         Console.WriteLine("Quality must be between 1..100");
                         Environment.Exit(1);
                     }
+
+                    if (!string.IsNullOrEmpty(options.Postfix))
+                    {
+                        postfix = options.Postfix;
+                    }
                     quality = options.Quality;
                 })
                 .WithNotParsed(errors =>
@@ -65,12 +71,12 @@ namespace AssetGenerator
                 Environment.Exit(1);
             }
 
-            await GenerateAssets(files, currentMode, destinationDirectory, quality);
+            await GenerateAssets(files, currentMode, destinationDirectory, quality, postfix);
             return await Task.FromResult(0);
         }
 
         private static async Task GenerateAssets(string[] files, DeviceType mode, string destinationDirectory,
-            int quality)
+            int quality, string postfix)
         {
             // It fails to create the first file
             var firstItem = files[0];
@@ -88,12 +94,12 @@ namespace AssetGenerator
                 if (mode == DeviceType.iOS)
                 {
                     var generator = new IOSAssetGenerator();
-                    await generator.CreateAsset(filepath, filename, destinationDirectory, quality);
+                    await generator.CreateAsset(filepath, filename, destinationDirectory, quality, string.Empty);
                 }
                 else
                 {
                     var generator = new AndroidAssetGenerator();
-                    await generator.CreateAsset(filepath, filename, destinationDirectory, quality);
+                    await generator.CreateAsset(filepath, filename, destinationDirectory, quality, postfix);
                 }
             }
         }
