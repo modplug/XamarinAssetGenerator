@@ -26,7 +26,9 @@ namespace AssetGenerator
                 try
                 {
                     var name = Enum.GetName(typeof(AndroidResourceType), resourceType.Key);
-                    var resourceDirectoryName = $"drawable-{name.ToLowerInvariant()}-{postfix}";
+                    var resourceDirectoryName = string.IsNullOrEmpty(postfix)
+                        ? $"drawable-{name.ToLowerInvariant()}"
+                        : $"drawable-{name.ToLowerInvariant()}-{postfix}";
                     var svg = new SKSvg();
                     try
                     {
@@ -42,6 +44,13 @@ namespace AssetGenerator
 
                     var width = (int) (svg.CanvasSize.Width * resourceType.Value);
                     var height = (int) (svg.CanvasSize.Height * resourceType.Value);
+                    
+                    // Cheap clamp
+                    if (width < 1)
+                        width = 1;
+                    if (height < 1)
+                        height = 1;
+                    
                     var filenameWithExtension = $"{filename}.png";
                     var resourceDir = Path.Combine(destinationDirectory, resourceDirectoryName);
                     if (!Directory.Exists(resourceDir))
